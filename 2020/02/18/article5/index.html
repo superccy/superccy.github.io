@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="线性回归,Softmax,多层感知机," />
+  <meta name="keywords" content="卷积神经网络," />
 
 
 
@@ -79,47 +79,39 @@
 
 
 
-<meta name="description" content="一、线性回归主要内容：1.线性回归的解释2.线性回归模型的基本要素3.线性回归模型的两种实现方式 1.线性回归的解释线性回归，就是能够用一个直线较为精确地描述数据之间的关系。这样当出现新的数据的时候，就能够预测出一个简单的值。线性回归中最常见的就是房价的问题。一直存在很多房屋面积和房价的数据，如下图所示：在这种情况下，就可以利用线性回归构造出一条直线来近似地描述放假与房屋面积之间的关系，从而就可以">
+<meta name="description" content="一、卷积神经网络基础主要内容：1.二维卷积层2.填充和步幅3.多输入通道和多输出通道4.池化 1.二维卷积层二维卷积层常用于处理图像数据。 1.1 二维互相关运算二维互相关（cross-correlation）运算的输入是一个二维输入数组和一个二维核（kernel）数组，输出也是一个二维数组，其中核数组通常称为卷积核或过滤器（filter）。卷积核的尺寸通常小于输入数组，卷积核在输入数组上滑动，在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《动手学深度学习》笔记 Task01_线性回归；Softmax与分类模型、多层感知机">
-<meta property="og:url" content="http://yoursite.com/2020/02/13/article1/index.html">
+<meta property="og:title" content="《动手学深度学习》笔记 Task05_卷积神经网络基础；leNet；卷积神经网络进阶">
+<meta property="og:url" content="http://yoursite.com/2020/02/18/article5/index.html">
 <meta property="og:site_name" content="Super CCY">
-<meta property="og:description" content="一、线性回归主要内容：1.线性回归的解释2.线性回归模型的基本要素3.线性回归模型的两种实现方式 1.线性回归的解释线性回归，就是能够用一个直线较为精确地描述数据之间的关系。这样当出现新的数据的时候，就能够预测出一个简单的值。线性回归中最常见的就是房价的问题。一直存在很多房屋面积和房价的数据，如下图所示：在这种情况下，就可以利用线性回归构造出一条直线来近似地描述放假与房屋面积之间的关系，从而就可以">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214132232134.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214133203357.jpg">
+<meta property="og:description" content="一、卷积神经网络基础主要内容：1.二维卷积层2.填充和步幅3.多输入通道和多输出通道4.池化 1.二维卷积层二维卷积层常用于处理图像数据。 1.1 二维互相关运算二维互相关（cross-correlation）运算的输入是一个二维输入数组和一个二维核（kernel）数组，输出也是一个二维数组，其中核数组通常称为卷积核或过滤器（filter）。卷积核的尺寸通常小于输入数组，卷积核在输入数组上滑动，在">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218162551163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020021816280896.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218162829456.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163001286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2020021413334554.jpg">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200214133605266.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214135309137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141026943.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141157927.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141421164.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141611912.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141706632.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141831743.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141906591.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214141942367.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142013490.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020021414210973.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142146320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142303851.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142323890.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142336511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214142934761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214143441170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020021414362463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214143743500.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020021414383936.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214143917866.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214144113836.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200214144346817.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-02-13T04:12:57.000Z">
-<meta property="article:modified_time" content="2020-02-14T07:52:23.176Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163256683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163321575.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163348627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163519224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163557366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218163723803.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020021816390699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218164246111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218164433701.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218164740872.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218164840702.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218164938331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218165047170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218165144802.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200218165359326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-02-18T04:12:57.000Z">
+<meta property="article:modified_time" content="2020-02-18T09:01:28.324Z">
 <meta property="article:author" content="Super CCY">
-<meta property="article:tag" content="线性回归">
-<meta property="article:tag" content="Softmax">
-<meta property="article:tag" content="多层感知机">
+<meta property="article:tag" content="卷积神经网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200214132232134.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200218162551163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -149,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/02/13/article1/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/02/18/article5/"/>
 
 
 
 
 
-  <title>《动手学深度学习》笔记 Task01_线性回归；Softmax与分类模型、多层感知机 | Super CCY</title>
+  <title>《动手学深度学习》笔记 Task05_卷积神经网络基础；leNet；卷积神经网络进阶 | Super CCY</title>
   
 
 
@@ -326,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/article1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/18/article5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Super CCY">
@@ -343,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《动手学深度学习》笔记 Task01_线性回归；Softmax与分类模型、多层感知机</h1>
+          <h1 class="post-title" itemprop="name headline">《动手学深度学习》笔记 Task05_卷积神经网络基础；leNet；卷积神经网络进阶</h1>
         
 
         <div class="post-meta">
@@ -355,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T12:12:57+08:00">
-                2020-02-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-18T12:12:57+08:00">
+                2020-02-18
               </time>
             
 
@@ -414,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.3k
+                  3.5k
                 </span>
               
 
@@ -430,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  12
                 </span>
               
             </div>
@@ -451,43 +443,70 @@
       
 
       
-        <h1 id="一、线性回归"><a href="#一、线性回归" class="headerlink" title="一、线性回归"></a><strong>一、线性回归</strong></h1><p><strong>主要内容：<br>1.线性回归的解释<br>2.线性回归模型的基本要素<br>3.线性回归模型的两种实现方式</strong></p>
-<h2 id="1-线性回归的解释"><a href="#1-线性回归的解释" class="headerlink" title="1.线性回归的解释"></a>1.线性回归的解释</h2><p>线性回归，就是能够用一个直线较为精确地描述数据之间的关系。这样当出现新的数据的时候，就能够预测出一个简单的值。线性回归中最常见的就是房价的问题。一直存在很多房屋面积和房价的数据，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200214132232134.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在这种情况下，就可以利用线性回归构造出一条直线来近似地描述放假与房屋面积之间的关系，从而就可以根据房屋面积推测出房价。<br><em>线性回归输出是一个连续值，因此适用于回归问题</em>。回归问题在实际中很常见，如预测房屋价格、气温、销售额等连续值的问题。与回归问题不同，分类问题中模型的最终输出是一个离散值。我们所说的图像分类、垃圾邮件识别、疾病检测等输出为离散值的问题都属于分类问题的范畴。softmax回归则适用于分类问题。<br>由于==线性回归和softmax回归都是单层神经网络==，它们涉及的概念和技术同样适用于大多数的深度学习模型。</p>
-<h2 id="2-线性回归模型的基本要素"><a href="#2-线性回归模型的基本要素" class="headerlink" title="2.线性回归模型的基本要素"></a>2.线性回归模型的基本要素</h2><h2 id="2-1-模型"><a href="#2-1-模型" class="headerlink" title="2.1 模型"></a>2.1 模型</h2><p>为了简单起见，这里我们假设价格只取决于房屋状况的两个因素，即面积（平方米）和房龄（年）。接下来我们希望探索价格与这两个因素的具体关系。线性回归假设输出与各个输入之间是线性关系:<br><img src="https://img-blog.csdnimg.cn/20200214133203357.jpg" alt="在这里插入图片描述"></p>
-<h2 id="2-2-模型训练"><a href="#2-2-模型训练" class="headerlink" title="2.2 模型训练"></a>2.2 模型训练</h2><p>接下来我们需要通过数据来寻找特定的模型参数值，使模型在数据上的误差尽可能小。这个过程叫作模型训练（model training）。下面我们介绍模型训练所涉及的3个要素。</p>
+        <h1 id="一、卷积神经网络基础"><a href="#一、卷积神经网络基础" class="headerlink" title="一、卷积神经网络基础"></a><strong>一、卷积神经网络基础</strong></h1><p><strong>主要内容：<br>1.二维卷积层<br>2.填充和步幅<br>3.多输入通道和多输出通道<br>4.池化</strong></p>
+<h2 id="1-二维卷积层"><a href="#1-二维卷积层" class="headerlink" title="1.二维卷积层"></a>1.二维卷积层</h2><p>二维卷积层常用于处理图像数据。</p>
+<h3 id="1-1-二维互相关运算"><a href="#1-1-二维互相关运算" class="headerlink" title="1.1 二维互相关运算"></a>1.1 二维互相关运算</h3><p>二维互相关（cross-correlation）运算的输入是一个二维输入数组和一个二维核（kernel）数组，输出也是一个二维数组，其中核数组通常称为卷积核或过滤器（filter）。卷积核的尺寸通常小于输入数组，卷积核在输入数组上滑动，在每个位置上，卷积核与该位置处的输入子数组按元素相乘并求和，得到输出数组中相应位置的元素。图1展示了一个互相关运算的例子，阴影部分分别是输入的第一个计算区域、核数组以及对应的输出。<br><img src="https://img-blog.csdnimg.cn/20200218162551163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="1-2-二维卷积层"><a href="#1-2-二维卷积层" class="headerlink" title="1.2 二维卷积层"></a>1.2 二维卷积层</h3><p>二维卷积层将输入和卷积核做互相关运算，并加上一个标量偏置来得到输出。卷积层的模型参数包括卷积核和标量偏置。</p>
+<h3 id="1-3-互相关运算与卷积运算"><a href="#1-3-互相关运算与卷积运算" class="headerlink" title="1.3 互相关运算与卷积运算"></a>1.3 互相关运算与卷积运算</h3><p>卷积层得名于卷积运算，但卷积层中用到的并非卷积运算而是互相关运算。我们将核数组上下翻转、左右翻转，再与输入数组做互相关运算，这一过程就是卷积运算。由于卷积层的核数组是可学习的，所以使用互相关运算与使用卷积运算并无本质区别。</p>
+<h3 id="1-4-特征图与感受野"><a href="#1-4-特征图与感受野" class="headerlink" title="1.4 特征图与感受野"></a>1.4 特征图与感受野</h3><p>二维卷积层输出的二维数组可以看作是输入在空间维度（宽和高）上某一级的表征，也叫特征图（feature map）。影响元素的前向计算的所有可能输入区域（可能大于输入的实际尺寸）叫做x的感受野（receptive field）。</p>
+<h2 id="2-填充和步幅"><a href="#2-填充和步幅" class="headerlink" title="2.填充和步幅"></a>2.填充和步幅</h2><p>卷积层的两个超参数，即填充和步幅，它们可以对给定形状的输入和卷积核改变输出形状。</p>
+<h2 id="2-1-填充"><a href="#2-1-填充" class="headerlink" title="2.1 填充"></a>2.1 填充</h2><p>填充（padding）是指在输入高和宽的两侧填充元素（通常是0元素），图2里我们在原输入高和宽的两侧分别添加了值为0的元素。<br><img src="https://img-blog.csdnimg.cn/2020021816280896.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图2 在输入的高和宽两侧分别填充了0元素的二维互相关计算。<br><img src="https://img-blog.csdnimg.cn/20200218162829456.png" alt="在这里插入图片描述"><br>我们在卷积神经网络中使用奇数高宽的核，比如3 * 3，5 * 5的卷积核，对于高度（或宽度）为大小为2k+1的核，令步幅为1，在高（或宽）两侧选择大小为的填充，便可保持输入与输出尺寸相同。</p>
+<h2 id="2-2-步幅"><a href="#2-2-步幅" class="headerlink" title="2.2 步幅"></a>2.2 步幅</h2><p>在互相关运算中，卷积核在输入数组上滑动，每次滑动的行数与列数即是步幅（stride）。此前我们使用的步幅都是1，图3展示了在高上步幅为3、在宽上步幅为2的二维互相关运算。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200218163001286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h3 id="2-2-1-数据集"><a href="#2-2-1-数据集" class="headerlink" title="2.2.1 数据集"></a>2.2.1 数据集</h3><p>我们通常收集一系列的真实数据，例如多栋房屋的真实售出价格和它们对应的面积和房龄。我们希望在这个数据上面寻找模型参数来使模型的预测价格与真实价格的误差最小。在机器学习术语里，该数据集被称为训练数据集（training data set）或训练集（training set），一栋房屋被称为一个样本（sample），其真实售出价格叫作标签（label），用来预测标签的两个因素叫作特征（feature）。特征用来表征样本的特点。</p>
 <h3 id="2-2-2-损失函数"><a href="#2-2-2-损失函数" class="headerlink" title="2.2.2 损失函数"></a>2.2.2 损失函数</h3><p>模型训练中，我们需要衡量价格预测值与真实值之间的误差。通常我们会选取一个非负数作为误差，且数值越小表示误差越小。一个常用的选择是平方函数。 它在评估索引为  i  的样本误差的表达式为<br><img src="https://img-blog.csdnimg.cn/2020021413334554.jpg" alt="在这里插入图片描述"></p>
 <h3 id="2-2-3-优化函数-随机梯度下降"><a href="#2-2-3-优化函数-随机梯度下降" class="headerlink" title="2.2.3 优化函数 - 随机梯度下降"></a>2.2.3 优化函数 - 随机梯度下降</h3><p>当模型和损失函数形式较为简单时，上面的误差最小化问题的解可以直接用公式表达出来。这类解叫作解析解（analytical solution）。本节使用的线性回归和平方误差刚好属于这个范畴。然而，大多数深度学习模型并没有解析解，只能通过优化算法有限次迭代模型参数来尽可能降低损失函数的值。这类解叫作数值解（numerical solution）。</p>
 <p>在求数值解的优化算法中，小批量随机梯度下降（mini-batch stochastic gradient descent）在深度学习中被广泛使用。它的算法很简单：先选取一组模型参数的初始值，如随机选取；接下来对参数进行多次迭代，使每次迭代都可能降低损失函数的值。在每次迭代中，先随机均匀采样一个由固定数目训练数据样本所组成的小批量（mini-batch） B ，然后求小批量中数据样本的平均损失有关模型参数的导数（梯度），最后用此结果与预先设定的一个正数的乘积作为模型参数在本次迭代的减小量。<img src="https://img-blog.csdnimg.cn/20200214133605266.jpg" alt="在这里插入图片描述"><br>学习率:  η 代表在每次优化中，能够学习的步长的大小<br>批量大小:  B 是小批量计算中的批量大小batch size</p>
 <p>总结一下，优化函数的有以下两个步骤：<br>(i)初始化模型参数，一般来说使用随机初始化；<br>(ii)我们在数据上迭代多次，通过在负梯度方向移动参数来更新每个参数。</p>
 <h2 id="2-3-模型预测"><a href="#2-3-模型预测" class="headerlink" title="2.3 模型预测"></a>2.3 模型预测</h2><p>模型训练完成后，我们将模型参数 在优化算法停止时的值分别记录 。注意，这里我们得到的并不一定是最小化损失函数的最优解  ，而是对最优解的一个近似。然后，我们就可以使用学出的线性回归模型来估算训练数据集以外任意一栋面积（平方米）为 area 、房龄（年）为 age 的房屋的价格了。这里的估算也叫作模型预测、模型推断或模型测试。</p>
-<h2 id="3-线性回归模型的两种实现方式"><a href="#3-线性回归模型的两种实现方式" class="headerlink" title="3.线性回归模型的两种实现方式"></a>3.线性回归模型的两种实现方式</h2><p>方式一：从零开始的实现（推荐用来学习），能够更好的理解模型和神经网络底层的原理<br>方式二：使用pytorch的简洁实现，能够更加快速地完成模型的设计与实现<br>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a></p>
-<p><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/20200214135309137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="二、Softmax与分类模型"><a href="#二、Softmax与分类模型" class="headerlink" title="二、Softmax与分类模型"></a><strong>二、Softmax与分类模型</strong></h1><p>线性回归模型适用于输出为连续值的情景。在另一类情景中，模型输出可以是一个像图像类别这样的离散值。对于这样的离散值预测问题，我们可以使用诸如softmax回归在内的分类模型。和线性回归不同，softmax回归的输出单元从一个变成了多个，且引入了softmax运算使输出更适合离散值的预测和训练。本节以softmax回归模型为例，介绍神经网络中的分类模型。</p>
-<p><strong>主要内容：<br>1.softmax回归的基本概念<br>2.softmax回归模型的两种实现，实现一个对Fashion-MNIST训练集中的图像数据进行分类的模型</strong></p>
-<h2 id="1-softmax回归的基本概念"><a href="#1-softmax回归的基本概念" class="headerlink" title="1.softmax回归的基本概念"></a>1.softmax回归的基本概念</h2><h3 id="1-1分类问题"><a href="#1-1分类问题" class="headerlink" title="1.1分类问题"></a>1.1分类问题</h3><p>一个简单的图像分类问题，输入图像的高和宽均为2像素，色彩为灰度。<br>图像中的4像素分别记为x1, x2, x3, x4。<br>假设真实标签为狗、猫或者鸡，这些标签对应的离散值为y1, y2, y3。<br>我们通常使用离散的数值来表示类别，例如y1=1, y2=2, y3=3。</p>
-<h3 id="1-2权重矢量"><a href="#1-2权重矢量" class="headerlink" title="1.2权重矢量"></a>1.2权重矢量</h3><p><img src="https://img-blog.csdnimg.cn/20200214141026943.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="1-3神经网络图"><a href="#1-3神经网络图" class="headerlink" title="1.3神经网络图"></a>1.3神经网络图</h3><p>下图用神经网络图描绘了上面的计算。softmax回归同线性回归一样，也是一个单层神经网络。由于每个输出o1, o2, o3的计算都要依赖于所有的输入x1, x2, x3, x4，softmax回归的输出层也是一个全连接层。<br><img src="https://img-blog.csdnimg.cn/20200214141157927.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200214141421164.jpg" alt="在这里插入图片描述"></p>
-<h3 id="1-4输出问题"><a href="#1-4输出问题" class="headerlink" title="1.4输出问题"></a>1.4输出问题</h3><p>直接使用输出层的输出有两个问题：<br>1.一方面，由于输出层的输出值的范围不确定，我们难以直观上判断这些值的意义。例如，刚才举的例子中的输出值10表示“很置信”图像类别为猫，因为该输出值是其他两类的输出值的100倍。但如果o1=o3=10^3，那么输出值10却又表示图像类别为猫的概率很低。<br>2.另一方面，由于真实标签是离散值，这些离散值与不确定范围的输出值之间的误差难以衡量。<br>softmax运算符（softmax operator）解决了以上两个问题。它通过下式将输出值变换成值为正且和为1的概率分布：<img src="https://img-blog.csdnimg.cn/20200214141611912.jpg" alt="在这里插入图片描述"><br>其中<br><img src="https://img-blog.csdnimg.cn/20200214141706632.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>因此softmax运算不改变预测类别输出。</p>
-<h3 id="1-4计算效率"><a href="#1-4计算效率" class="headerlink" title="1.4计算效率"></a>1.4计算效率</h3><h4 id="1-4-1单样本矢量计算表达式"><a href="#1-4-1单样本矢量计算表达式" class="headerlink" title="1.4.1单样本矢量计算表达式"></a>1.4.1单样本矢量计算表达式</h4><p>为了提高计算效率，我们可以将单样本分类通过矢量计算来表达。在上面的图像分类问题中，假设softmax回归的权重和偏差参数分别为<br><img src="https://img-blog.csdnimg.cn/20200214141831743.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>设高和宽分别为2个像素的图像样本i的特征为<br><img src="https://img-blog.csdnimg.cn/20200214141906591.jpg" alt="在这里插入图片描述"><br>输出层的输出为<br><img src="https://img-blog.csdnimg.cn/20200214141942367.jpg" alt="在这里插入图片描述"><br>预测为狗、猫或鸡的概率分布为<br><img src="https://img-blog.csdnimg.cn/20200214142013490.jpg" alt="在这里插入图片描述"><br>softmax回归对样本i分类的矢量计算表达式为<br><img src="https://img-blog.csdnimg.cn/2020021414210973.png" alt="在这里插入图片描述"></p>
-<h4 id="1-4-2小批量矢量计算表达式"><a href="#1-4-2小批量矢量计算表达式" class="headerlink" title="1.4.2小批量矢量计算表达式"></a>1.4.2小批量矢量计算表达式</h4><p><img src="https://img-blog.csdnimg.cn/20200214142146320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="1-5交叉熵损失函数"><a href="#1-5交叉熵损失函数" class="headerlink" title="1.5交叉熵损失函数"></a>1.5交叉熵损失函数</h3><p><img src="https://img-blog.csdnimg.cn/20200214142303851.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>改善上述问题的一个方法是使用更适合衡量两个概率分布差异的测量函数。其中，交叉熵（cross entropy）是一个常用的衡量方法：<br><img src="https://img-blog.csdnimg.cn/20200214142323890.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200214142336511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="1-6模型训练和预测"><a href="#1-6模型训练和预测" class="headerlink" title="1.6模型训练和预测"></a>1.6模型训练和预测</h3><p>在训练好softmax回归模型后，给定任一样本特征，就可以预测每个输出类别的概率。通常，我们把预测概率最大的类别作为输出类别。如果它与真实类别（标签）一致，说明这次预测是正确的。我们将使用准确率（accuracy）来评价模型的表现。它等于正确预测数量与总预测数量之比。</p>
-<h2 id="2-softmax回归模型的两种实现"><a href="#2-softmax回归模型的两种实现" class="headerlink" title="2.softmax回归模型的两种实现"></a>2.softmax回归模型的两种实现</h2><p>方式一：从零开始实现，实现一个对Fashion-MNIST训练集中的图像数据进行分类的模型<br>方式二：使用pytorch重新实现softmax回归模型<br>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a><br>帮助理解softmax函数的博客：<a href="https://blog.csdn.net/lz_peter/article/details/84574716" target="_blank" rel="noopener">添加链接描述</a></p>
-<p><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/20200214142934761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="三、多层感知机"><a href="#三、多层感知机" class="headerlink" title="三、多层感知机"></a><strong>三、多层感知机</strong></h1><p>我们已经介绍了包括线性回归和softmax回归在内的单层神经网络。然而深度学习主要关注多层模型。我们将以多层感知机（multilayer perceptron，MLP）为例，介绍多层神经网络的概念。<br><strong>主要内容：<br>1.多层感知机的基本知识<br>2.使用多层感知机图像分类的两种实现</strong></p>
-<h2 id="1-多层感知机的基本知识"><a href="#1-多层感知机的基本知识" class="headerlink" title="1.多层感知机的基本知识"></a>1.多层感知机的基本知识</h2><h3 id="1-1隐藏层"><a href="#1-1隐藏层" class="headerlink" title="1.1隐藏层"></a>1.1隐藏层</h3><p>多层感知机在单层神经网络的基础上引入了一到多个隐藏层（hidden layer）。<br>下图展示了一个多层感知机的神经网络图，它含有一个隐藏层，该层中有5个隐藏单元。<br><img src="https://img-blog.csdnimg.cn/20200214143441170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020021414362463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="1-2激活函数"><a href="#1-2激活函数" class="headerlink" title="1.2激活函数"></a>1.2激活函数</h3><p>上述问题的根源在于全连接层只是对数据做仿射变换（affine transformation），而多个仿射变换的叠加仍然是一个仿射变换。解决问题的一个方法是引入非线性变换，例如对隐藏变量使用按元素运算的非线性函数进行变换，然后再作为下一个全连接层的输入。这个非线性函数被称为激活函数（activation function）。<br>下面我们介绍几个常用的激活函数：</p>
-<p><strong>ReLU函数</strong><br>ReLU（rectified linear unit）函数提供了一个很简单的非线性变换。给定元素 x ，该函数定义为<br><img src="https://img-blog.csdnimg.cn/20200214143743500.png" alt="在这里插入图片描述"><br>可以看出，ReLU函数只保留正数元素，并将负数元素清零。</p>
-<p><strong>Sigmoid函数</strong><br>sigmoid函数可以将元素的值变换到0和1之间：<br><img src="https://img-blog.csdnimg.cn/2020021414383936.png" alt="在这里插入图片描述"><br><strong>tanh函数</strong><br>tanh（双曲正切）函数可以将元素的值变换到-1和1之间：<br><img src="https://img-blog.csdnimg.cn/20200214143917866.png" alt="在这里插入图片描述"><br>当输入接近0时，tanh函数接近线性变换。虽然该函数的形状和sigmoid函数的形状很像，但tanh函数在坐标系的原点上对称。</p>
-<p><strong>关于激活函数的选择</strong><br>1.ReLu函数是一个通用的激活函数，目前在大多数情况下使用。但是，ReLU函数只能在隐藏层中使用。</p>
-<p>2.用于分类器时，sigmoid函数及其组合通常效果更好。由于梯度消失问题，有时要避免使用sigmoid和tanh函数。</p>
-<p>3.在神经网络层数较多的时候，最好使用ReLu函数，ReLu函数比较简单计算量少，而sigmoid和tanh函数计算量大很多。</p>
-<p>在选择激活函数的时候可以先选用ReLu函数如果效果不理想可以尝试其他激活函数。</p>
-<h3 id="1-3多层感知机"><a href="#1-3多层感知机" class="headerlink" title="1.3多层感知机"></a>1.3多层感知机</h3><p>多层感知机就是含有至少一个隐藏层的由全连接层组成的神经网络，且每个隐藏层的输出通过激活函数进行变换。多层感知机的层数和各隐藏层中隐藏单元个数都是超参数。以单隐藏层为例并沿用本节之前定义的符号，多层感知机按以下方式计算输出：<br><img src="https://img-blog.csdnimg.cn/20200214144113836.png" alt="在这里插入图片描述"></p>
-<h2 id="2-使用多层感知机图像分类的两种实现"><a href="#2-使用多层感知机图像分类的两种实现" class="headerlink" title="2.使用多层感知机图像分类的两种实现"></a>2.使用多层感知机图像分类的两种实现</h2><p>方式一：从零开始实现的实现<br>方式二：使用pytorch的简洁实现<br>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a><br>帮助理解的博客：<a href="https://blog.csdn.net/fg13821267836/article/details/93405572" target="_blank" rel="noopener">添加链接描述</a></p>
-<p><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/20200214144346817.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><strong>参考资料：</strong><br>《动手学深度学习》中文版官网教材：<a href="http://zh.gluon.ai/" target="_blank" rel="noopener">添加链接描述</a><br>PyTorch中文文档：<a href="https://pytorch-cn.readthedocs.io/zh/stable/" target="_blank" rel="noopener">添加链接描述</a></p>
+<h2 id="3-多输入通道和多输出通道"><a href="#3-多输入通道和多输出通道" class="headerlink" title="3.多输入通道和多输出通道"></a>3.多输入通道和多输出通道</h2><p>之前的输入和输出都是二维数组，但真实数据的维度经常更高。例如，彩色图像在高和宽2个维度外还有RGB（红、绿、蓝）3个颜色通道。假设彩色图像的高和宽分别是h和w（像素），那么它可以表示为一个3<em>h</em>w的多维数组，我们将大小为3的这一维称为通道（channel）维。</p>
+<h3 id="3-1多输入通道"><a href="#3-1多输入通道" class="headerlink" title="3.1多输入通道"></a>3.1多输入通道</h3><p>卷积层的输入可以包含多个通道，图4展示了一个含2个输入通道的二维互相关计算的例子。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200218163256683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图4 含2个输入通道的互相关计算<br><img src="https://img-blog.csdnimg.cn/20200218163321575.png" alt="在这里插入图片描述"></p>
+<h3 id="3-2-多输出通道"><a href="#3-2-多输出通道" class="headerlink" title="3.2 多输出通道"></a>3.2 多输出通道</h3><p><img src="https://img-blog.csdnimg.cn/20200218163348627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-3-1x1卷积层"><a href="#3-3-1x1卷积层" class="headerlink" title="3.3 1x1卷积层"></a>3.3 1x1卷积层</h3><p>最后讨论形状为1x1的卷积核，我们通常称这样的卷积运算为1x1卷积，称包含这种卷积核的卷积层为1x1卷积层。图5展示了使用输入通道数为3、输出通道数为2的1x1卷积核的互相关计算。<br><img src="https://img-blog.csdnimg.cn/20200218163519224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图5 1x1卷积核的互相关计算。输入和输出具有相同的高和宽</p>
+<p>1x1卷积核可在不改变高宽的情况下，调整通道数。1x1卷积核不识别高和宽维度上相邻元素构成的模式，其主要计算发生在通道维上。假设我们将通道维当作特征维，将高和宽维度上的元素当成数据样本，那么1x1卷积层的作用与全连接层等价。<br><img src="https://img-blog.csdnimg.cn/20200218163557366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="4-池化"><a href="#4-池化" class="headerlink" title="4.池化"></a>4.池化</h2><p><strong>二维池化层</strong><br>池化层主要用于缓解卷积层对位置的过度敏感性。同卷积层一样，池化层每次对输入数据的一个固定形状窗口（又称池化窗口）中的元素计算输出，池化层直接计算池化窗口内元素的最大值或者平均值，该运算也分别叫做最大池化或平均池化。图6展示了池化窗口形状为2<em>2的最大池化。<br><img src="https://img-blog.csdnimg.cn/20200218163723803.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图6 池化窗口形状为 2 x 2 的最大池化<br>二维平均池化的工作原理与二维最大池化类似，但将最大运算符替换成平均运算符。池化窗口形状为p</em>q的池化层称为p<em>q池化层，其中的池化运算叫作p</em>q池化。</p>
+<p>池化层也可以在输入的高和宽两侧填充并调整窗口的移动步幅来改变输出形状。池化层填充和步幅与卷积层填充和步幅的工作机制一样。</p>
+<p>在处理多通道输入数据时，池化层对每个输入通道分别池化，但不会像卷积层那样将各通道的结果按通道相加。这意味着池化层的输出通道数与输入通道数相等。</p>
+<p>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a></p>
+<p><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/2020021816390699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="二、leNet"><a href="#二、leNet" class="headerlink" title="二、leNet"></a><strong>二、leNet</strong></h1><p><strong>主要内容：<br>1.leNet结构介绍</strong></p>
+<h2 id="1-leNet结构介绍"><a href="#1-leNet结构介绍" class="headerlink" title="1.leNet结构介绍"></a>1.leNet结构介绍</h2><p>使用全连接层的局限性：</p>
+<ul>
+<li>图像在同一列邻近的像素在这个向量中可能相距较远。它们构成的模式可能难以被模型识别。</li>
+<li>对于大尺寸的输入图像，使用全连接层容易导致模型过大。</li>
+</ul>
+<p>使用卷积层的优势：</p>
+<ul>
+<li>卷积层保留输入形状。</li>
+<li>卷积层通过滑动窗口将同一卷积核与不同位置的输入重复计算，从而避免参数尺寸过大。</li>
+</ul>
+<p><strong>LeNet 模型</strong><br>LeNet分为卷积层块和全连接层块两个部分。<br><img src="https://img-blog.csdnimg.cn/20200218164246111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>卷积层块里的基本单位是卷积层后接平均池化层：卷积层用来识别图像里的空间模式，如线条和物体局部，之后的平均池化层则用来降低卷积层对位置的敏感性。</p>
+<p>卷积层块由两个这样的基本单位重复堆叠构成。在卷积层块中，每个卷积层都使用的窗口，并在输出上使用sigmoid激活函数。第一个卷积层输出通道数为6，第二个卷积层输出通道数则增加到16。</p>
+<p>全连接层块含3个全连接层。它们的输出个数分别是120、84和10，其中10为输出的类别个数。</p>
+<p><strong>卷积神经网络就是含卷积层的网络。 LeNet交替使用卷积层和最大池化层后接全连接层来进行图像分类。</strong></p>
+<p>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a></p>
+<p><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/20200218164433701.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="三、卷积神经网络进阶"><a href="#三、卷积神经网络进阶" class="headerlink" title="三、卷积神经网络进阶"></a><strong>三、卷积神经网络进阶</strong></h1><p><strong>主要内容：<br>1.深度卷积神经网络（AlexNet）<br>2.使用重复元素的网络（VGG）<br>3.网络中的网络（NiN）<br>4.GoogLeNet</strong></p>
+<h2 id="1-深度卷积神经网络（AlexNet）"><a href="#1-深度卷积神经网络（AlexNet）" class="headerlink" title="1.深度卷积神经网络（AlexNet）"></a>1.深度卷积神经网络（AlexNet）</h2><p>LeNet: 在大的真实数据集上的表现并不尽如人意。<br>1.神经网络计算复杂。<br>2.还没有大量深入研究参数初始化和非凸优化算法等诸多领域。</p>
+<p>机器学习的特征提取:手工定义的特征提取函数<br>神经网络的特征提取：通过学习得到数据的多级表征，并逐级表⽰越来越抽象的概念或模式。</p>
+<p>神经网络发展的限制:数据、硬件。</p>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a><strong>AlexNet</strong></h3><p>首次证明了学习到的特征可以超越⼿⼯设计的特征，从而⼀举打破计算机视觉研究的前状。<br><strong>特征：</strong></p>
+<ol>
+<li>8层变换，其中有5层卷积和2层全连接隐藏层，以及1个全连接输出层。</li>
+<li>将sigmoid激活函数改成了更加简单的ReLU激活函数。</li>
+<li>用Dropout来控制全连接层的模型复杂度。</li>
+<li>引入数据增强，如翻转、裁剪和颜色变化，从而进一步扩大数据集来缓解过拟合。<br><img src="https://img-blog.csdnimg.cn/20200218164740872.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+<h2 id="2-使用重复元素的网络（VGG）"><a href="#2-使用重复元素的网络（VGG）" class="headerlink" title="2.使用重复元素的网络（VGG）"></a>2.使用重复元素的网络（VGG）</h2><p>VGG：通过重复使⽤简单的基础块来构建深度模型。<br>Block:数个相同的填充为1、窗口形状为3<em>3的卷积层,接上一个步幅为2、窗口形状为2</em>2的最大池化层。<br>卷积层保持输入的高和宽不变，而池化层则对其减半。<br><img src="https://img-blog.csdnimg.cn/20200218164840702.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="3-网络中的网络（NiN）"><a href="#3-网络中的网络（NiN）" class="headerlink" title="3.网络中的网络（NiN）"></a>3.网络中的网络（NiN）</h2><p>LeNet、AlexNet和VGG：先以由卷积层构成的模块充分抽取 空间特征，再以由全连接层构成的模块来输出分类结果。<br>NiN：串联多个由卷积层和“全连接”层构成的小网络来构建⼀个深层⽹络。<br>⽤了输出通道数等于标签类别数的NiN块，然后使用全局平均池化层对每个通道中所有元素求平均并直接用于分类。<br><img src="https://img-blog.csdnimg.cn/20200218164938331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>1×1卷积核作用：<br>1.放缩通道数：通过控制卷积核的数量达到通道数的放缩。<br>2.增加非线性。1×1卷积核的卷积过程相当于全连接层的计算过程，并且还加入了非线性激活函数，从而可以增加网络的非线性。<br>3.计算参数少</p>
+<h2 id="4-GoogLeNet"><a href="#4-GoogLeNet" class="headerlink" title="4.GoogLeNet"></a>4.GoogLeNet</h2><ol>
+<li>由Inception基础块组成。</li>
+<li>Inception块相当于⼀个有4条线路的⼦⽹络。它通过不同窗口形状的卷积层和最⼤池化层来并⾏抽取信息，并使⽤1×1卷积层减少通道数从而降低模型复杂度。</li>
+<li>可以⾃定义的超参数是每个层的输出通道数，我们以此来控制模型复杂度。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200218165047170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>GoogLeNet模型</strong><br>完整模型结构<br><img src="https://img-blog.csdnimg.cn/20200218165144802.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>代码与讲解链接：<a href="https://www.kesci.com/org/boyuai/workspace/project" target="_blank" rel="noopener">添加链接描述</a><br>帮助理解的博客：<a href="https://blog.csdn.net/zh_ch_yu/article/details/88383196" target="_blank" rel="noopener">添加链接描述</a><br>帮助理解的博客：<a href="https://blog.csdn.net/u013679159/article/details/104209344" target="_blank" rel="noopener">添加链接描述</a><br>帮助理解的博客：<a href="https://www.cnblogs.com/yh-blog/p/10052915.html" target="_blank" rel="noopener">添加链接描述</a><br><strong>习题练习：</strong><br><img src="https://img-blog.csdnimg.cn/20200218165359326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N1cGVyX0NDWQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>参考资料：</strong><br>《动手学深度学习》中文版官网教材：<a href="http://zh.gluon.ai/" target="_blank" rel="noopener">添加链接描述</a><br>PyTorch中文文档：<a href="https://pytorch-cn.readthedocs.io/zh/stable/" target="_blank" rel="noopener">添加链接描述</a></p>
 
       
     </div>
@@ -514,11 +533,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag"># 线性回归</a>
-          
-            <a href="/tags/Softmax/" rel="tag"># Softmax</a>
-          
-            <a href="/tags/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" rel="tag"># 多层感知机</a>
+            <a href="/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"># 卷积神经网络</a>
           
         </div>
       
@@ -531,8 +546,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/10/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2020/02/17/article4/" rel="next" title="《动手学深度学习》笔记 Task04_机器翻译及相关技术；注意力机制与Seq2seq模型；Transformer">
+                <i class="fa fa-chevron-left"></i> 《动手学深度学习》笔记 Task04_机器翻译及相关技术；注意力机制与Seq2seq模型；Transformer
               </a>
             
           </div>
@@ -540,10 +555,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/13/article2/" rel="prev" title="《动手学深度学习》笔记 Task02_文本预处理；语言模型；循环神经网络基础">
-                《动手学深度学习》笔记 Task02_文本预处理；语言模型；循环神经网络基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -686,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、线性回归"><span class="nav-number">1.</span> <span class="nav-text">一、线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-线性回归的解释"><span class="nav-number">1.1.</span> <span class="nav-text">1.线性回归的解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-线性回归模型的基本要素"><span class="nav-number">1.2.</span> <span class="nav-text">2.线性回归模型的基本要素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-模型"><span class="nav-number">1.3.</span> <span class="nav-text">2.1 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-模型训练"><span class="nav-number">1.4.</span> <span class="nav-text">2.2 模型训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-数据集"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.2.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-损失函数"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.2.2 损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-优化函数-随机梯度下降"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.2.3 优化函数 - 随机梯度下降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-模型预测"><span class="nav-number">1.5.</span> <span class="nav-text">2.3 模型预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线性回归模型的两种实现方式"><span class="nav-number">1.6.</span> <span class="nav-text">3.线性回归模型的两种实现方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Softmax与分类模型"><span class="nav-number">2.</span> <span class="nav-text">二、Softmax与分类模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-softmax回归的基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">1.softmax回归的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1分类问题"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1分类问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2权重矢量"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2权重矢量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3神经网络图"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3神经网络图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4输出问题"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4输出问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4计算效率"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.4计算效率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1单样本矢量计算表达式"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">1.4.1单样本矢量计算表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2小批量矢量计算表达式"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">1.4.2小批量矢量计算表达式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5交叉熵损失函数"><span class="nav-number">2.1.6.</span> <span class="nav-text">1.5交叉熵损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6模型训练和预测"><span class="nav-number">2.1.7.</span> <span class="nav-text">1.6模型训练和预测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-softmax回归模型的两种实现"><span class="nav-number">2.2.</span> <span class="nav-text">2.softmax回归模型的两种实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、多层感知机"><span class="nav-number">3.</span> <span class="nav-text">三、多层感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多层感知机的基本知识"><span class="nav-number">3.1.</span> <span class="nav-text">1.多层感知机的基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1隐藏层"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.1隐藏层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2激活函数"><span class="nav-number">3.1.2.</span> <span class="nav-text">1.2激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3多层感知机"><span class="nav-number">3.1.3.</span> <span class="nav-text">1.3多层感知机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用多层感知机图像分类的两种实现"><span class="nav-number">3.2.</span> <span class="nav-text">2.使用多层感知机图像分类的两种实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、卷积神经网络基础"><span class="nav-number">1.</span> <span class="nav-text">一、卷积神经网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-二维卷积层"><span class="nav-number">1.1.</span> <span class="nav-text">1.二维卷积层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-二维互相关运算"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 二维互相关运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-二维卷积层"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 二维卷积层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-互相关运算与卷积运算"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 互相关运算与卷积运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-特征图与感受野"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 特征图与感受野</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-填充和步幅"><span class="nav-number">1.2.</span> <span class="nav-text">2.填充和步幅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-填充"><span class="nav-number">1.3.</span> <span class="nav-text">2.1 填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-步幅"><span class="nav-number">1.4.</span> <span class="nav-text">2.2 步幅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-数据集"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.2.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-损失函数"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.2.2 损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-优化函数-随机梯度下降"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.2.3 优化函数 - 随机梯度下降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-模型预测"><span class="nav-number">1.5.</span> <span class="nav-text">2.3 模型预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-多输入通道和多输出通道"><span class="nav-number">1.6.</span> <span class="nav-text">3.多输入通道和多输出通道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1多输入通道"><span class="nav-number">1.6.1.</span> <span class="nav-text">3.1多输入通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-多输出通道"><span class="nav-number">1.6.2.</span> <span class="nav-text">3.2 多输出通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1x1卷积层"><span class="nav-number">1.6.3.</span> <span class="nav-text">3.3 1x1卷积层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-池化"><span class="nav-number">1.7.</span> <span class="nav-text">4.池化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、leNet"><span class="nav-number">2.</span> <span class="nav-text">二、leNet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-leNet结构介绍"><span class="nav-number">2.1.</span> <span class="nav-text">1.leNet结构介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、卷积神经网络进阶"><span class="nav-number">3.</span> <span class="nav-text">三、卷积神经网络进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-深度卷积神经网络（AlexNet）"><span class="nav-number">3.1.</span> <span class="nav-text">1.深度卷积神经网络（AlexNet）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AlexNet"><span class="nav-number">3.1.1.</span> <span class="nav-text">AlexNet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用重复元素的网络（VGG）"><span class="nav-number">3.2.</span> <span class="nav-text">2.使用重复元素的网络（VGG）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-网络中的网络（NiN）"><span class="nav-number">3.3.</span> <span class="nav-text">3.网络中的网络（NiN）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-GoogLeNet"><span class="nav-number">3.4.</span> <span class="nav-text">4.GoogLeNet</span></a></li></ol></li></ol></div>
             
 
           </div>
